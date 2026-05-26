@@ -1,54 +1,65 @@
-<<<<<<< HEAD
-\# Medical RAG Chatbot
+# Medical RAG Chatbot
 
+A chatbot that answers medical questions using actual textbooks,
+not the AI's general knowledge.
 
+---
 
-A RAG (Retrieval Augmented Generation) chatbot that answers
+## What is RAG?
 
-medical questions using uploaded medical textbooks.
+RAG (Retrieval Augmented Generation) forces the AI to answer
+only from documents you provide — preventing hallucination.
 
+---
 
+## How it works
 
-\## Tech stack
+1. Medical PDFs are split into small chunks
+2. Each chunk is converted to a vector using Gemini embeddings
+3. Vectors are stored in a local Qdrant database
+4. When you ask a question, the top 5 matching chunks are found
+5. Gemini reads those chunks and generates a grounded answer
 
-\- Python 3.14
+---
 
-\- Google Gemini API (LLM + embeddings)
+## Tech stack
 
-\- Qdrant (vector database, local)
+| Component       | Tool                    |
+|-----------------|-------------------------|
+| LLM             | Google Gemini API       |
+| Embeddings      | Gemini Embedding 001    |
+| Vector database | Qdrant (local)          |
+| PDF reading     | PyMuPDF                 |
+| Chat UI         | Gradio                  |
+| Language        | Python 3.14             |
 
-\- Gradio (chat UI)
+---
 
-\- PyMuPDF (PDF reading)
+## Setup
 
+git clone https://github.com/TiwariShreya05/medical-rag-chatbot.git
+cd medical-rag-chatbot
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
 
+Add your Gemini API key to a .env file:
+GEMINI_API_KEY=your_key_here
 
-\## How it works
+Add PDF books to the books/ folder, then run:
+python ingest.py
+python app.py
 
-1\. Medical PDFs are chunked and embedded using Gemini
+Open browser at http://localhost:7860
 
-2\. Embeddings stored in local Qdrant vector DB
+---
 
-3\. User question is embedded and matched to top 5 chunks
+## Example questions
 
-4\. Gemini generates answer using only retrieved context
+- What is the function of the heart?
+- What are symptoms of diabetes?
+- How does the brain control movement?
 
+---
 
-
-\## Setup
-
-1\. Clone this repo
-
-2\. Create venv and install: pip install -r requirements.txt
-
-3\. Add your Gemini API key to .env file
-
-4\. Add PDF books to books/ folder
-
-5\. Run: python ingest.py
-
-6\. Run: python app.py
-
-=======
-# medical-rag-chatbot
->>>>>>> 70623bbc13e412d66743bb453f6e0acb6d2b5e63
+Shreya Tiwari — 2026
