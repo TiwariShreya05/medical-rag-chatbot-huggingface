@@ -1,0 +1,7 @@
+.env
+venv/
+qdrant_data/
+books/
+__pycache__/
+*.pyc
+*.pdf
