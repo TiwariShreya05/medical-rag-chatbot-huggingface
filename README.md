@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 \# Medical RAG Chatbot
 
 
@@ -48,3 +49,6 @@ medical questions using uploaded medical textbooks.
 
 6\. Run: python app.py
 
+=======
+# medical-rag-chatbot
+>>>>>>> 70623bbc13e412d66743bb453f6e0acb6d2b5e63
