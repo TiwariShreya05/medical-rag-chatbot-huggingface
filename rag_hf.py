@@ -34,3 +34,6 @@ Answer:"""
         messages=[{"role": "user", "content": prompt}]
     )
     return response.choices[0].message.content
+
+qdrant_data_hf/
+qdrant_data/
