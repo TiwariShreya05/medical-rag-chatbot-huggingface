@@ -18,11 +18,11 @@ def embed_query(text):
 
 def answer(question):
     vector = embed_query(question)
-    results = db.search(
+    results = db.query_points(
         collection_name=COLLECTION,
-        query_vector=vector,
+        query=vector,
         limit=5
-    )
+    ).points
     context = "\n---\n".join([r.payload["text"] for r in results])
     prompt = f"""You are a helpful medical assistant.
 Use ONLY the context below to answer the question.
