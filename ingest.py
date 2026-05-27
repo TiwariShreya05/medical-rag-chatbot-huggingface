@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 load_dotenv()
 client_ai = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 db = QdrantClient(path="./qdrant_data")
-
 COLLECTION = "medical_books"
 
 if not db.collection_exists(COLLECTION):
@@ -16,6 +15,17 @@ if not db.collection_exists(COLLECTION):
         collection_name=COLLECTION,
         vectors_config=VectorParams(size=3072, distance=Distance.COSINE)
     )
+
+# Get list of already embedded books
+already_done = set()
+results = db.scroll(collection_name=COLLECTION, limit=10000)
+for point in results[0]:
+    if "source" in point.payload:
+        already_done.add(point.payload["source"])
+
+if already_done:
+    print(f"Already embedded: {already_done}")
+    print("Skipping those, only processing new books...")
 
 def chunk_text(text, chunk_size=400):
     words = text.split()
@@ -43,6 +53,12 @@ def embed(text, retries=5):
 for pdf_file in os.listdir("books"):
     if not pdf_file.endswith(".pdf"):
         continue
+
+    # Skip if already embedded
+    if pdf_file in already_done:
+        print(f"Skipping {pdf_file} — already in database")
+        continue
+
     print(f"Processing {pdf_file}...")
     doc = fitz.open(f"books/{pdf_file}")
     full_text = " ".join(page.get_text() for page in doc)
