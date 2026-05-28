@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv() 
 client_ai = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 db = QdrantClient(path="./qdrant_data")
-COLLECTION = "medical_books"
+COLLECTION = "medical_books" 
 
 def embed_query(text):
     time.sleep(1)
