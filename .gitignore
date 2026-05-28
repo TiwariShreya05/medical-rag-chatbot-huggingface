@@ -4,4 +4,4 @@ qdrant_data/
 books/
 __pycache__/
 *.pyc
-*.pdf
+*.pdf 
