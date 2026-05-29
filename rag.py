@@ -18,7 +18,7 @@ def embed_query(text):
 
 def answer(question):
     vector = embed_query(question)
-    results = db.query_points(
+    results = db.query_points( 
         collection_name=COLLECTION,
         query=vector,
         limit=5
