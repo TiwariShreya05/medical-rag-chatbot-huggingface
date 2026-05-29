@@ -2,7 +2,7 @@ from google import genai
 from qdrant_client import QdrantClient
 import os, time
 from dotenv import load_dotenv
-
+ 
 load_dotenv() 
 client_ai = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 db = QdrantClient(path="./qdrant_data")
